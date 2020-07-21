@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Little Project";
 		config.height = 800;
-		config.width = 1240;
+		config.width = 1280;
 		new LwjglApplication(new Game(), config);
 	}
 }
