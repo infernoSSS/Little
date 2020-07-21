@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class SceneManager {
     private String[] scenes;
     private Scene scene;
+    public HashMap<Integer, String> objList;
     private HashMap<Integer, String> scenesList;
 
     public SceneManager(){

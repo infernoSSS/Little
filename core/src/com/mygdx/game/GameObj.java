@@ -10,11 +10,10 @@ import java.util.HashMap;
 public class GameObj {
     protected HashMap<String,Texture> assetsList;
     protected float[] xy;
-    protected int objId;
     protected String nowTexture;
 
-    public void createObj(float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
-        nowTexture = names[0];
+    public void createObj(float[] xy, ArrayList<String> names){ // загрузка текстур в asstsList на вход все названия ассетов
+        nowTexture = names.get(0);
         assetsList = new HashMap<String,Texture>();
         for(String nowName : names) {
             assetsList.put(nowName,new Texture(Gdx.files.internal(nowName)));
@@ -26,7 +25,7 @@ public class GameObj {
         return true;
     }
 
-    protected void updateTexture(){
+    protected void updateTexture(){ //изменение текстуры, анимация
 
     }
 
