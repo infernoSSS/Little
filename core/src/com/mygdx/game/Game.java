@@ -14,9 +14,11 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		GameManager gameManager = new GameManager();
+		gameManager.create();
 		//img = new Texture("badlogic.jpg");
-		sceneManager = new SceneManager();
-		sceneManager.create();
+		sceneManager = new SceneManager(gameManager); //нужно заменить на номер полученый из GameManager
+		sceneManager.create(gameManager);
 	}
 
 	@Override

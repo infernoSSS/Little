@@ -1,22 +1,33 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.HashMap;
 
-public class SceneManager {
-    private String[] scenes;
+public final class SceneManager {
     private Scene scene;
-    public HashMap<Integer, String> objList;
     private HashMap<Integer, String> scenesList;
     private int[][] squaresMatrix;
+    private Music sceneTheme;
+    private String fileOfScenesList;
+    private int numbOfCurScene;
 
-    public SceneManager(){
+    public SceneManager(GameManager gameManager){
         scenesList = new HashMap<>();
+        numbOfCurScene = gameManager.getNumbOfStartScene();
+        fileOfScenesList = "resurs/scenesList.txt";
     }
 
-    public void create(){ //инициализация scenes(загрузка из файла) + стартовая сцена
+    public void create( GameManager gameManager){ //инициализация scenes(загрузка из файла) + стартовая сцена
         squaresMatrix = createSquaresMatrix();
+        getScenesList(gameManager.takeStringFromFile(fileOfScenesList),scenesList);
+        scene = new Scene();
+        sceneTheme = Gdx.audio.newMusic(Gdx.files.internal(scene.create(scenesList.get(numbOfCurScene),squaresMatrix,gameManager)));//создание сцены и определение музыкальной темы
+        sceneTheme.setLooping(true);
+        sceneTheme.play();
     }
 
     public void drawScene(SpriteBatch batch){    //отрисовка сцены
@@ -30,7 +41,7 @@ public class SceneManager {
         }
     }
 
-    public void updateScene(){  //Смена сцены
+    private void updateScene(){  //Смена сцены
         if(scene.remuveScene()){
             System.out.println("Ошибка удаления сцены " + scene.getId());
         }
@@ -41,7 +52,7 @@ public class SceneManager {
 
     }
 
-    public int[][] createSquaresMatrix(){
+    private int[][] createSquaresMatrix(){   //нужно модифицировать под любое разрешение
         int[][] matrix = new int[3][160];   //1й столбец матрицы номер квадрат, 2й его x0, 3й его y0
         int num = 0;                        //номер квадрата
         for(int j = 0; j < 800; j+=80){        //строки
@@ -53,6 +64,18 @@ public class SceneManager {
             }
         }
         return matrix;
+    }
+
+    private void getScenesList(String stringFromFile, HashMap<Integer, String> objMap){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
+        stringFromFile = stringFromFile.replace("{","");// удаление кавычек
+        stringFromFile =  stringFromFile.replace("}","");
+        stringFromFile =  stringFromFile.replace(" ","");
+        String[] supStrings = stringFromFile.split(",");
+        String[] supStrings2;
+        for(String s : supStrings){
+            supStrings2 = s.split("=");
+            objMap.put(Integer.parseInt(supStrings2[0]), supStrings2[1]);
+        }
     }
 
 }

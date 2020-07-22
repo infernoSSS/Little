@@ -1,19 +1,23 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Scene {
     protected ArrayList<GameObj> sceneObj;
-    protected Sound mainSoud;
+    protected String mainSound;
     protected int SceneId;
 
-    public int create(){
-        sceneObj = new ArrayList<GameObj>();
-        return 0;
+    public String create(String sceneFileName, int[][] squaresMatrix, GameManager gameManager){
+        sceneObj = new ArrayList<>();
+        mainSound = getSceneObj(sceneFileName,sceneObj,squaresMatrix,gameManager);
+        return mainSound;
     }
 
     public boolean update(){    //изменение состояния сцены и проверка на выход из сцены
@@ -36,4 +40,36 @@ public class Scene {
     public int getId(){
         return SceneId;
     }
+
+    public String getSceneObj(String sceneFileName, ArrayList<GameObj> sceneObj, int[][] squaresMatrix, GameManager gameManager){
+        HashMap<Integer,Integer> xyAndIdObj = new HashMap<>();  //хранение номера квадрата и ид соотв объекта
+        String theme = getSceneFromString(getSceneStringFromFile(sceneFileName),xyAndIdObj); //заполнение xyAndIdObj и получение имени аудио
+        Set<Integer> keys = xyAndIdObj.keySet();                               //хранение всех ключей xyAndIdObj (ключ - номер квадрата)
+        for(Integer i : keys){
+            float[] xy = {(float)squaresMatrix[1][i],(float)squaresMatrix[2][i]};
+            sceneObj.add((new GameObj()).createObj(xy,gameManager.getObjsList().get(xyAndIdObj.get(i)))); //создание объектов
+        }
+        return theme;
+    }
+
+    protected String getSceneFromString(String stringFromFile, HashMap<Integer, Integer> objMap){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
+        stringFromFile = stringFromFile.replace("{","");// удаление кавычек
+        stringFromFile =  stringFromFile.replace("}","");
+        String[] supStrings = stringFromFile.split(" ",2);
+        String sound = supStrings[0];  //название файла со звуковым сопровождением к сцене
+        supStrings[1] =  supStrings[1].replace(" ","");
+        supStrings = supStrings[1].split(","); // разбиваем на пары ключ-значение
+        String[] supStrings2;
+        for(String s : supStrings){
+            supStrings2 = s.split("=");
+            objMap.put(Integer.parseInt(supStrings2[0]), Integer.parseInt(supStrings2[1]));
+        }
+        return sound;
+    }
+
+    protected String getSceneStringFromFile(String fileName){
+        FileHandle sceneFile = Gdx.files.local(fileName);
+        return sceneFile.readString();
+    }
+
 }
