@@ -12,7 +12,7 @@ public final class GameManager {
     private String objsListFileName;
 
     public void create(){
-        objsListFileName = "resurs/objFile.txt"; //здесь лежит HashMap с key - id, val - String[] текстуры объектов
+        objsListFileName = "resurs/NoUseObjFile.txt"; //здесь лежит HashMap с key - id, val - String[] текстуры объектов
         objsList = new HashMap<>();
         loadObjsFromFile(takeStringFromFile(objsListFileName),objsList);
         numbOfStartScene = 1;             //должно подгружаться из save

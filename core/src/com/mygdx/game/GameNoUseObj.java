@@ -7,32 +7,23 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
-public class GameObj {
-    protected ArrayList<Texture> assetsList;
-    protected Vector2 cords;
-    protected int nowTexture;
-    public GameObj createObj(float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
-        nowTexture = 0;
-        this.cords = new Vector2(xy[0],xy[1]);
-        assetsList = new ArrayList<>();
-        for(String nowName : names) {
-            assetsList.add(new Texture(Gdx.files.internal(nowName)));
-        }
+public class GameNoUseObj extends GameObj {
+
+    public GameNoUseObj createObj(float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
+        super.createObj(xy, names); //
         return this;
     }
 
     public boolean update(){    //изменение состояния объекта, если возвращено false должен быть удалён
-        updateTexture();
-        return true;
+        return super.update();
     }
 
     protected void updateTexture(){ //изменение текстуры, анимация
-
+        super.updateTexture();
     }
 
     public void draw(SpriteBatch batch){
         batch.draw(assetsList.get(nowTexture),cords.x,cords.y);
-
     }
 
     public float getX(){
