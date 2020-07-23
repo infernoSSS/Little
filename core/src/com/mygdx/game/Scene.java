@@ -14,9 +14,10 @@ public class Scene {
     protected int SceneId;
     protected GameObj gameObj;
 
-    public String create(String sceneFileName, int[][] squaresMatrix, GameManager gameManager){
+
+    public String create(String sceneFileName, int[][] squaresMatrix, GameManager gameManager, SceneManager sceneManager){
         sceneObj = new ArrayList<>();
-        mainSound = getSceneObj(sceneFileName,sceneObj,squaresMatrix,gameManager);
+        mainSound = getSceneObj(sceneFileName,sceneObj,squaresMatrix,gameManager, sceneManager);
         return mainSound;
     }
 
@@ -41,17 +42,16 @@ public class Scene {
         return SceneId;
     }
 
-    public String getSceneObj(String sceneFileName, ArrayList<GameObj> sceneObj, int[][] squaresMatrix, GameManager gameManager){
+    public String getSceneObj(String sceneFileName, ArrayList<GameObj> sceneObj, int[][] squaresMatrix, GameManager gameManager, SceneManager sceneManager){
         HashMap<Integer,Integer[]> xyAndIdObj = new HashMap<>();  //хранение номера квадрата и ид соотв объектов
-        String theme = getSceneFromString(getSceneStringFromFile(sceneFileName),xyAndIdObj); //заполнение xyAndIdObj и получение имени аудио
+        String theme = getSceneFromString(getSceneStringFromFile(sceneFileName),xyAndIdObj, sceneManager); //заполнение xyAndIdObj и получение имени аудио
         Set<Integer> keys = xyAndIdObj.keySet();                               //хранение всех ключей xyAndIdObj (ключ - номер квадрата)
         Integer[] objInSquare;
         for(Integer i : keys){
-            float[] xy = {(float)squaresMatrix[1][i],(float)squaresMatrix[2][i]};
+            float[] xy = {(float)sceneManager.getSquaresMatrix()[1][i], (float)sceneManager.getSquaresMatrix()[2][i]};
             objInSquare = xyAndIdObj.get(i);
             int ind = 0;
             for(Integer obj : objInSquare) {
-                System.out.println("obj " + ind + " = " + obj);
                 ind++;
                 gameObj = gameManager.getGameOgjCreator().createObj(xy, gameManager.getObjsList().get(obj));
                 if (gameObj != null) {
@@ -62,11 +62,12 @@ public class Scene {
         return theme;
     }
 
-    protected String getSceneFromString(String stringFromFile, HashMap<Integer, Integer[]> objMap){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
+    protected String getSceneFromString(String stringFromFile, HashMap<Integer, Integer[]> objMap, SceneManager sceneManager){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
         stringFromFile = stringFromFile.replace("{","");// удаление кавычек
         stringFromFile =  stringFromFile.replace("}","");
-        String[] supStrings = stringFromFile.split(" ",2);
+        String[] supStrings = stringFromFile.split("~",3);
         String sound = supStrings[0];  //название файла со звуковым сопровождением к сцене
+        sceneManager.createSquaresMatrix(supStrings[2]);
         supStrings[1] =  supStrings[1].replace(" ","");
         supStrings = supStrings[1].split(","); // разбиваем на пары ключ-значение
         String[] supStrings2; //для хранения пары номер квадрата - массив объектов для этого номера
@@ -90,5 +91,7 @@ public class Scene {
         FileHandle sceneFile = Gdx.files.local(fileName);
         return sceneFile.readString();
     }
+
+
 
 }

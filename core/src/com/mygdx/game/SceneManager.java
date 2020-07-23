@@ -13,6 +13,11 @@ public final class SceneManager {
     private int[][] squaresMatrix;
     private Music sceneTheme;
     private String fileOfScenesList;
+
+    public int[][] getSquaresMatrix() {
+        return squaresMatrix;
+    }
+
     private int numbOfCurScene;
 
     public SceneManager(GameManager gameManager){
@@ -22,10 +27,9 @@ public final class SceneManager {
     }
 
     public void create( GameManager gameManager){ //инициализация scenes(загрузка из файла) + стартовая сцена
-        squaresMatrix = createSquaresMatrix();
         getScenesList(gameManager.takeStringFromFile(fileOfScenesList),scenesList);
         scene = new Scene();
-        sceneTheme = Gdx.audio.newMusic(Gdx.files.internal(scene.create(scenesList.get(numbOfCurScene),squaresMatrix,gameManager)));//создание сцены и определение музыкальной темы
+        sceneTheme = Gdx.audio.newMusic(Gdx.files.internal(scene.create(scenesList.get(numbOfCurScene),squaresMatrix,gameManager, this)));//создание сцены и определение музыкальной темы
         sceneTheme.setLooping(true);
         sceneTheme.play();
     }
@@ -52,20 +56,6 @@ public final class SceneManager {
 
     }
 
-    private int[][] createSquaresMatrix(){   //нужно модифицировать под любое разрешение
-        int[][] matrix = new int[3][160];   //1й столбец матрицы номер квадрат, 2й его x0, 3й его y0
-        int num = 0;                        //номер квадрата
-        for(int j = 0; j < 800; j+=80){        //строки
-            for (int i = 0; i < 1280; i+=80){   //столбцы в строке
-                matrix[0][num] = num;
-                matrix[1][num] = i;
-                matrix[2][num] = j;
-                num++;
-            }
-        }
-        return matrix;
-    }
-
     private void getScenesList(String stringFromFile, HashMap<Integer, String> objMap){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
         stringFromFile = stringFromFile.replace("{","");// удаление кавычек
         stringFromFile =  stringFromFile.replace("}","");
@@ -76,6 +66,23 @@ public final class SceneManager {
             supStrings2 = s.split("=");
             objMap.put(Integer.parseInt(supStrings2[0]), supStrings2[1]);
         }
+    }
+
+    public void createSquaresMatrix(String resolution){   //нужно модифицировать под любое разрешение
+        String[] supStrings = resolution.split("x");
+        int weight = Integer.parseInt(supStrings[0]);
+        int hight = Integer.parseInt(supStrings[1]);
+        int[][] matrix = new int[3][weight*hight/80/80];   //1й столбец матрицы номер квадрат, 2й его x0, 3й его y0
+        int num = 0;                        //номер квадрата
+        for(int j = 0; j < hight; j+=80){        //строки
+            for (int i = 0; i < weight; i+=80){   //столбцы в строке
+                matrix[0][num] = num;
+                matrix[1][num] = i;
+                matrix[2][num] = j;
+                num++;
+            }
+        }
+        squaresMatrix = matrix;
     }
 
 }
