@@ -1,1 +1,1 @@
-{1=resurs/scenes/1/noUseObj.txt}
+{1=resurs/scenes/1/obj.txt}

@@ -15,7 +15,7 @@ public final class GameManager {
 
     public void create(){
         gameOgjCreator = new GameOgjCreator();
-        objsListFileName = "resurs/NoUseObjFile.txt"; //здесь лежит HashMap с key - id, val - String[] текстуры объектов
+        objsListFileName = "resurs/objFile.txt"; //здесь лежит HashMap с key - id, val - String[] текстуры объектов
         objsList = new HashMap<>();
         loadObjsFromFile(takeStringFromFile(objsListFileName),objsList);
         numbOfStartScene = 1;             //должно подгружаться из save
