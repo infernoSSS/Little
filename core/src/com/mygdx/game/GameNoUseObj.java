@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class GameNoUseObj extends GameObj {
 
-    public GameNoUseObj createObj(float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
-        super.createObj(xy, names); //
+    public GameNoUseObj createObj(int type, float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
+        super.createObj(type, xy, names); //
         return this;
     }
 

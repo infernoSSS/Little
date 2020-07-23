@@ -11,7 +11,10 @@ public final class GameManager {
     private HashMap<Integer, String[]> objsList;
     private String objsListFileName;
 
+    private GameOgjCreator gameOgjCreator;
+
     public void create(){
+        gameOgjCreator = new GameOgjCreator();
         objsListFileName = "resurs/NoUseObjFile.txt"; //здесь лежит HashMap с key - id, val - String[] текстуры объектов
         objsList = new HashMap<>();
         loadObjsFromFile(takeStringFromFile(objsListFileName),objsList);
@@ -41,6 +44,10 @@ public final class GameManager {
     public String takeStringFromFile(String fileName){ //чтение из файла
         FileHandle file = Gdx.files.local(fileName);
         return file.readString();
+    }
+
+    public GameOgjCreator getGameOgjCreator() {
+        return gameOgjCreator;
     }
 
     public void delete(){

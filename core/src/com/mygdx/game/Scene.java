@@ -12,6 +12,7 @@ public class Scene {
     protected ArrayList<GameObj> sceneObj;
     protected String mainSound;
     protected int SceneId;
+    protected GameObj gameObj;
 
     public String create(String sceneFileName, int[][] squaresMatrix, GameManager gameManager){
         sceneObj = new ArrayList<>();
@@ -46,7 +47,10 @@ public class Scene {
         Set<Integer> keys = xyAndIdObj.keySet();                               //хранение всех ключей xyAndIdObj (ключ - номер квадрата)
         for(Integer i : keys){
             float[] xy = {(float)squaresMatrix[1][i],(float)squaresMatrix[2][i]};
-            sceneObj.add((new GameObj()).createObj(xy,gameManager.getObjsList().get(xyAndIdObj.get(i)))); //создание объектов
+            gameObj = gameManager.getGameOgjCreator().createObj(xy,gameManager.getObjsList().get(xyAndIdObj.get(i)));
+            if(gameObj!=null){
+                sceneObj.add(gameObj);
+            }
         }
         return theme;
     }

@@ -11,7 +11,10 @@ public class GameObj {
     protected ArrayList<Texture> assetsList;
     protected Vector2 cords;
     protected int nowTexture;
-    public GameObj createObj(float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
+    private int objType;
+
+    public GameObj createObj(int type, float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
+        objType = type;
         nowTexture = 0;
         this.cords = new Vector2(xy[0],xy[1]);
         assetsList = new ArrayList<>();
