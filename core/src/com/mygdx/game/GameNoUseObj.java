@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class GameNoUseObj extends GameObj {
 
-    public GameNoUseObj createObj(int type, float[] xy, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
-        super.createObj(type, xy, names); //
+    public GameNoUseObj createObj(int id, int type, float[] xy, Scene scene, GameManager gameManager, String... names){ // загрузка текстур в asstsList на вход все названия ассетов
+        super.createObj(id, type, xy,scene, gameManager, names); //
         return this;
     }
 
@@ -21,17 +21,16 @@ public class GameNoUseObj extends GameObj {
     protected void updateTexture(){ //изменение текстуры, анимация
         super.updateTexture();
     }
-
-    public void draw(SpriteBatch batch){
-        batch.draw(assetsList.get(nowTexture),cords.x,cords.y);
+    public void draw(Scene scene, SpriteBatch batch){
+        batch.draw(scene.getSceneObjTextureStorage().get(id).get(nowTexture),position.x,position.y);
     }
 
     public float getX(){
-        return cords.x;
+        return position.x;
     }
 
     public  float getY(){
-        return cords.y;
+        return position.y;
     }
 
 }

@@ -1,1 +1,1 @@
-{1=1/GameButton.jpg, 2=1/MapRedButton.jpg, 3=1/smile.png}
+{1=1/GameButton, 2=1/MapRedButton, 3=1/smile}

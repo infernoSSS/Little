@@ -1,5 +1,5 @@
 Тип документа 	: |формат записи в документ|	//примечание
 
 scene 		: |audio/music.mp3~{squareNumb=objId&objId&...objId, squareNumb=objId&objId&...objId, ..., squareNumb=objId&objId&...objId}~WeightxHight|
-objFile 	: |{objId=objType/Textures, ..., objId=objType/Textures}| //разделение названий текстур объекта в разработке
+objFile 	: |{objId=objType/Textures, ..., objId=objType/Textures}| //разделение названий текстур - &
 scenesList	: |{sceneId=SceneRoot, ..., sceneId=SceneRoot}|

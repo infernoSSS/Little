@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +15,12 @@ public class Scene {
     protected String mainSound;
     protected int SceneId;
     protected GameObj gameObj;
+    protected HashMap<Integer,ArrayList<TextureAtlas.AtlasRegion>> sceneObjTextureStorage;
 
 
     public String create(String sceneFileName, int[][] squaresMatrix, GameManager gameManager, SceneManager sceneManager){
         sceneObj = new ArrayList<>();
+        sceneObjTextureStorage = new HashMap<>();
         mainSound = getSceneObj(sceneFileName,sceneObj,squaresMatrix,gameManager, sceneManager);
         return mainSound;
     }
@@ -30,7 +34,7 @@ public class Scene {
 
     public void draw(SpriteBatch batch){
         for(GameObj obj : sceneObj){
-            obj.draw(batch);
+            obj.draw(this, batch);
         }
     }
 
@@ -53,7 +57,7 @@ public class Scene {
             int ind = 0;
             for(Integer obj : objInSquare) {
                 ind++;
-                gameObj = gameManager.getGameOgjCreator().createObj(xy, gameManager.getObjsList().get(obj));
+                gameObj = gameManager.getGameOgjCreator().createObj(obj, xy,this, gameManager, gameManager.getObjsList().get(obj));
                 if (gameObj != null) {
                     sceneObj.add(gameObj);
                 }
@@ -92,6 +96,16 @@ public class Scene {
         return sceneFile.readString();
     }
 
+    public HashMap<Integer, ArrayList<TextureAtlas.AtlasRegion>> getSceneObjTextureStorage() {
+        return sceneObjTextureStorage;
+    }
 
+    public void addObjTextures(GameManager gameManager, int id, ArrayList<String> arrayList){
+        ArrayList<TextureAtlas.AtlasRegion> arrayTextureList = new ArrayList<>();
+        for (String s1 : arrayList) {
+            arrayTextureList.add(gameManager.getTextureAtlas().findRegion(s1));
+        }
+        sceneObjTextureStorage.put(id, arrayTextureList);
+    }
 
 }
