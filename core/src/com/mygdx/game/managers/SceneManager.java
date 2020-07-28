@@ -35,18 +35,14 @@ public final class SceneManager {
         scene.draw(batch);
     }
 
-    public void update(){       //Проверка сцены в каждую итерацию render
-
+    public void update(GameManager gameManager){       //Проверка сцены в каждую итерацию render
+        scene.update(gameManager);
     }
 
     private void updateScene(){  //Смена сцены
         if(scene.remuveScene()){
             System.out.println("Ошибка удаления сцены " + scene.getId());
         }
-
-    }
-
-    private void scenePause(){
 
     }
 

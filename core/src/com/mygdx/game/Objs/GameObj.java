@@ -25,7 +25,7 @@ public abstract class GameObj {
         return this;
     }
 
-    public boolean update(Scene scene){    //изменение состояния объекта, если возвращено false должен быть удалён
+    public boolean update(Scene scene, GameManager gameManager){    //изменение состояния объекта, если возвращено false должен быть удалён
         updateTexture();
         return true;
     }

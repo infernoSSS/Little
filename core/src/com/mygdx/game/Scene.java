@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.Objs.GameObj;
@@ -30,9 +28,9 @@ public class Scene {
         return mainSound;
     }
 
-    public void update(){    //изменение состояния сцены
+    public void update(GameManager gameManager){    //изменение состояния сцены
         for(GameObj obj : sceneObj){
-            obj.update(this);
+            obj.update(this, gameManager);
         }
     }
 

@@ -11,8 +11,8 @@ public class GameNoUseObj extends GameObj {
         return this;
     }
 
-    public boolean update(Scene scene){    //изменение состояния объекта, если возвращено false должен быть удалён
-        return super.update(scene);
+    public boolean update(Scene scene, GameManager gameManager){    //изменение состояния объекта, если возвращено false должен быть удалён
+        return super.update(scene, gameManager);
     }
 
     protected void updateTexture(){ //изменение текстуры, анимация

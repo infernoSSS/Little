@@ -8,6 +8,7 @@ import com.mygdx.game.Scene;
 
 public class Button extends GameObj {
     private Sound tapSound;
+    private boolean isTapped;
 
     @Override
     public GameObj createObj(int id, int type, float[] xy, Scene scene, GameManager gameManager, String names) {
@@ -17,8 +18,10 @@ public class Button extends GameObj {
     }
 
     @Override
-    public boolean update(Scene scene) {
-        return super.update(scene);
+    public boolean update(Scene scen, GameManager gameManager) {
+        isTapped = checkTap(gameManager);
+        updateTexture();
+        return true;
     }
 
     @Override
@@ -36,6 +39,18 @@ public class Button extends GameObj {
         super.loadTextures(scene, gameManager, names);
     }
 
+    private void playSound(){
+        tapSound.play();
+    }
+
+    public void doAction(){
+
+    }
+
+    private boolean checkTap(GameManager gameManager){
+        return false;
+    }
+
     @Override
     public float getX() {
         return super.getX();
@@ -50,18 +65,5 @@ public class Button extends GameObj {
     protected String getNames(String... names) {
         return super.getNames(names);
     }
-
-    private void playSound(){
-        tapSound.play();
-    }
-
-    public void doAction(){
-
-    }
-
-    private boolean isTapped(){
-        return false;
-    }
-
 
 }
