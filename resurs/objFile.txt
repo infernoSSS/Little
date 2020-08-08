@@ -1,1 +1,1 @@
-{1=1/GameButton, 2=1/MapRedButton, 3=1/smile}
+{1=2!audio/tapSound.wav!GameButton&GameButtonPressed, 2=2!audio/tapSound.wav!MapRedButton&MapRedButtonPressed, 3=1!smile, 4=2!audio/tapSound.wav!toStart&toStartPressed}

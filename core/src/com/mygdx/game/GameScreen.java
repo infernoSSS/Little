@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.managers.GameManager;
 import com.mygdx.game.managers.SceneManager;
@@ -9,9 +10,9 @@ public class GameScreen {
     GameManager gameManager;
     boolean pause;
 
-    public void createScreen(){
+    public void createScreen(OrthographicCamera camera){
         gameManager = new GameManager();
-        gameManager.create();
+        gameManager.create(camera);
         sceneManager = new SceneManager(gameManager);
         sceneManager.create(gameManager);
         pause = false;
@@ -22,7 +23,8 @@ public class GameScreen {
     }
 
     public void update(){
-
+        gameManager.update();
+        sceneManager.update(gameManager);
     }
 
 

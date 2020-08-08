@@ -1,36 +1,42 @@
 package com.mygdx.game.controll;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Cursor {
-    private Vector2 vector2;
+    private Vector3 vector3;
     private boolean isTapped;
     private boolean unTouchNear;
+    OrthographicCamera camera;
 
-    public Cursor(){
-        vector2 = new Vector2(0 , 0);
+    public Cursor(OrthographicCamera camera){
+        vector3 = new Vector3(0, 0, 0);
         isTapped = false;
         unTouchNear = false;
+        this.camera = camera;
     }
 
     public void tap(int x, int y){
-        vector2.x = x;
-        vector2.y = y;
+        vector3.x = x;
+        vector3.y = y;
+        vector3 = camera.unproject(vector3);
         isTapped = true;
         unTouchNear = false;
     }
 
     public void unTouch(int x, int y){
-        if((Math.abs(vector2.x - x) < 10) && (Math.abs(vector2.y - y) < 10)){
+        if((Math.abs(vector3.x - x) < 10) && (Math.abs(vector3.y - y) < 10)){
             unTouchNear = true;
         }
         isTapped = false;
-        vector2.x = x;
-        vector2.y = y;
+        vector3.x = x;
+        vector3.y = y;
+        vector3 = camera.unproject(vector3);
     }
 
-    public Vector2 getVector2() {
-        return vector2;
+    public Vector3 getVector3() {
+        return vector3;
     }
 
     public boolean isTapped() {

@@ -30,7 +30,7 @@ public class MyGameInputAdapter extends InputAdapter {
         switch (button){
             case (0):
                 cursor.tap(screenX, screenY);
-                return true;
+                return false;
             default: return false;
         }
     }
@@ -40,7 +40,7 @@ public class MyGameInputAdapter extends InputAdapter {
         switch (button){
             case (0):
                 cursor.unTouch(screenX, screenY);
-                return true;
+                return false;
             default: return false;
         }
     }

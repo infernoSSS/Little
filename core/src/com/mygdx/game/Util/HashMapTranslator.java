@@ -42,4 +42,27 @@ public class HashMapTranslator {
         return sb.toString();
     }
 
+    public static HashMap<Integer, Integer[]> HashMapIntIntMassFromString(String string){
+        HashMap<Integer, Integer[]> hashMap = new HashMap<>();
+        Integer[] integerMass;
+        String supString = string.replace("{", "");
+        supString = string.replace("}", "");
+        supString = string.replace(" ", "");
+        String[] supStrings = supString.split(",");
+        String[] supStrings2;
+        Integer key;
+        for(String s : supStrings){
+            supStrings2 = s.split("=");
+            key = Integer.parseInt(supStrings2[0]);
+            supStrings2 = supStrings2[1].split("&");
+            int length = supStrings2.length;
+            integerMass = new Integer[length];
+            for(int i = 0; i < length; i++){
+                integerMass[i] = Integer.parseInt(supStrings2[i]);
+            }
+            hashMap.put(key, integerMass);
+        }
+        return hashMap;
+    }
+
 }

@@ -38,9 +38,11 @@ public class Utils {
     public static String getSceneFromString(String stringFromFile, HashMap<Integer, Integer[]> objMap, SceneManager sceneManager){ //возвращает название файла с музыкой, получает строку считанную из файла и ссылку на Hashmap
         stringFromFile = stringFromFile.replace("{","");// удаление кавычек
         stringFromFile =  stringFromFile.replace("}","");
-        String[] supStrings = stringFromFile.split("~",3);
+        String[] supStrings = stringFromFile.split("~",4); // TODO при добавлении новых параметров сцены увеличить
         String sound = supStrings[0];  //название файла со звуковым сопровождением к сцене
-        sceneManager.setSquaresMatrix(createSquaresMatrix(supStrings[2]));
+        System.out.println(supStrings[2]);
+        sceneManager.setSquaresMatrix(createSquaresMatrix(supStrings[2]));//создание матрицы размещения (квадраты 80х80) основываясь на разрешении сцены
+        sceneManager.setDrawUI(Integer.parseInt(supStrings[3])); // Прорисовка UI
         supStrings[1] =  supStrings[1].replace(" ","");
         supStrings = supStrings[1].split(","); // разбиваем на пары ключ-значение
         String[] supStrings2; //для хранения пары номер квадрата - массив объектов для этого номера

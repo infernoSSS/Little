@@ -1,27 +1,90 @@
 
 packed.png
-size: 1024,512
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+16080Button
+  rotate: false
+  xy: 2, 2
+  size: 160, 80
+  orig: 160, 80
+  offset: 0, 0
+  index: -1
 GameButton
   rotate: false
-  xy: 2, 84
+  xy: 2, 488
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+GameButtonPressed
+  rotate: false
+  xy: 2, 186
   size: 400, 300
   orig: 400, 300
   offset: 0, 0
   index: -1
 MapRedButton
   rotate: false
-  xy: 404, 84
+  xy: 404, 488
   size: 400, 300
   orig: 400, 300
   offset: 0, 0
   index: -1
+MapRedButtonPressed
+  rotate: false
+  xy: 404, 186
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+apply
+  rotate: false
+  xy: 806, 344
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+okButton
+  rotate: false
+  xy: 286, 144
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+sceneSettingsSheet
+  rotate: false
+  xy: 2, 790
+  size: 1000, 200
+  orig: 1000, 200
+  offset: 0, 0
+  index: -1
 smile
   rotate: false
-  xy: 2, 2
+  xy: 204, 104
   size: 80, 80
   orig: 80, 80
+  offset: 0, 0
+  index: -1
+tipSheet
+  rotate: false
+  xy: 806, 488
+  size: 200, 300
+  orig: 200, 300
+  offset: 0, 0
+  index: -1
+toStart
+  rotate: false
+  xy: 2, 84
+  size: 200, 100
+  orig: 200, 100
+  offset: 0, 0
+  index: -1
+toStartPressed
+  rotate: false
+  xy: 806, 386
+  size: 200, 100
+  orig: 200, 100
   offset: 0, 0
   index: -1
